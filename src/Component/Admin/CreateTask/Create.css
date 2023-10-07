@@ -47,3 +47,8 @@
     border: 1px solid red;
   }
   
+  .services .service-item {
+    padding: 20px;
+    background: #fff;
+    height: 100%;
+}

@@ -1,7 +1,8 @@
 import React from 'react'
 import '../Sidebar.css'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 function Adminsidebar() {
+  const navigate=useNavigate();
   return <>
     <aside id="sidebar" className="sidebar">
   <ul className="sidebar-nav" id="sidebar-nav">
@@ -13,24 +14,34 @@ function Adminsidebar() {
     </li> 
 
     <li class="nav-item">
-        <Link class="nav-link collapsed"  to="/create-task">
-          <i class="bi bi-journal-text"></i><span>Forms</span>
+        <Link class="nav-link collapsed" to="/create-project">
+          <i class="bi bi-journal-text"></i><span>Create Project</span>
         </Link>
     
       </li>
-    <li class="nav-heading">Pages</li>
+    
 
       <li class="nav-item">
-        <Link class="nav-link collapsed" to="/user-details">
+        <Link class="nav-link collapsed" to="/team">
           <i class="bi bi-person"></i>
-          <span>Profile</span>
+          <span>Team Details</span>
         </Link>
       </li>
       <li class="nav-item">
-        <Link class="nav-link collapsed" to="/register">
+        <Link class="nav-link collapsed" to="/live">
           <i class="bi bi-card-list"></i>
-          <span>Register</span>
+          <span>Live Projects</span>
         </Link>
+      </li>
+
+      <li className="nav-item">
+      <Link
+        className="nav-link collapsed"
+        to="/completed"
+      >
+        <i className="bi bi-menu-button-wide" />
+        <span>Completed Projects</span>
+      </Link>
       </li>
     
     </ul>

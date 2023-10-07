@@ -1,8 +1,8 @@
 import React from 'react'
 import "./Create.css"
 import { useState } from 'react'
-import AdminNavbar from '../AdminNavbar'
-import Adminsidebar from '../Adminsidebar'
+import Nav from '../../Navigation/Nav';
+
 function Create() {
     const [data, setdata] = useState({});
 
@@ -42,8 +42,7 @@ setPriorityfocus(true);
       };
     
   return <>
-  <AdminNavbar/>
-  <Adminsidebar/>
+  <Nav/>
   <main id="main" class="main">
   <div className="awesome">
     <div className="pagetitle">
@@ -67,7 +66,7 @@ setPriorityfocus(true);
           {/* General Form Elements */}
           <form onSubmit={handlesubmit}>
           <div class="col-12 mb-3">
-                  <label for="inputNanme4" class="form-label">Project-Tittle</label>
+                  <label for="inputNanme4" class="form-label">Task-Tittle</label>
                   <input 
                   type="text"
                   name="tittle"
