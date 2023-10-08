@@ -16,10 +16,12 @@ import ProjectInfo from "./components/admin/projectInfo/ProjectInfo";
 import CreateTask from "./components/admin/createTask/CreateTask";
 import EditTask from "./components/admin/editTask/EditTask";
 import CreateEmployees from "./components/admin/createEmployees/CreateEmployees";
+import UserTasks from "./components/user/userTasks/UserTasks";
+import EditUserTask from "./components/user/editUserTask/EditUserTask";
 
 function App() {
- 
- const [user, setUser] = useState({});
+
+  const [user, setUser] = useState({});
 
   return (
     <BrowserRouter>
@@ -29,6 +31,7 @@ function App() {
           <Route path="/home" element={<Home />}>
             <Route path="userdashboard" element={<EmployeeDashBoard />} />
             <Route path="admindashboard" element={<AdminDashBoard />} />
+            <Route path="mytasks" element={<UserTasks />} />
             <Route path="employees" element={<Employees />} />
             <Route path="createproject" element={<CreateProject />} />
             <Route path="liveprojects" element={<LiveProjects />} />
@@ -44,6 +47,10 @@ function App() {
             <Route
               path="liveprojects/viewproject/edittask/:id/:taskid"
               element={<EditTask />}
+            />
+             <Route
+              path="mytasks/edittask/:id/:taskid"
+              element={<EditUserTask/>}
             />
             <Route path="createtask/:id" element={<CreateTask />} />
             <Route path="employees/createuser" element={<CreateEmployees />} />

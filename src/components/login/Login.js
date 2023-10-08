@@ -74,7 +74,7 @@ function Login() {
                                         className="logo d-flex align-items-center w-auto"
                                     >
                                         <img src={logo} alt="" />
-                                        <span className="d-none d-lg-block">NiceAdmin</span>
+                                        <span className="d-none d-lg-block">UReady Admin</span>
                                     </a>
                                 </div>
                                 {/* End Logo */}
