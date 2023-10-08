@@ -1,42 +1,57 @@
-import './App.css';
-import { Route, Routes } from "react-router-dom";
-import Login from './Component/Home/Login';
-import Register from './Component/Home/Register';
-import Navbar from './Component/Navbar';
-import AdminNavbar from './Component/Navigation/AdminNavbar';
-import Create from './Component/Admin/CreateTask/Create';
-import Adminsidebar from './Component/Navigation/Adminsidebar';
-import Dashboard from './Component/Admin/Dashboard/Dashboard';
-import Nav from './Component/Navigation/Nav';
-import Createproject from './Component/Admin/Createproject/Createproject';
-import Team from './Component/Admin/TeamDetails/Team';
-import Live from './Component/Admin/Liveprojects/Live';
-import View from './Component/Admin/ViewProject/View';
-import ViewTask from './Component/Admin/ViewTask/ViewTask';
+import "./App.css";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Home from "./components/home/Home";
+import Login from "./components/login/Login";
+
+import { UserProvider } from "./UserContext";
+import CreateProject from "./components/admin/createProject/CreateProject";
+import AdminDashBoard from "./components/admin/adminDashboard/AdminDashBoard";
+import Employees from "./components/admin/employees/Employees";
+import LiveProjects from "./components/admin/liveProjects/LiveProjects";
+import CompletedProjects from "./components/admin/completedProjects/CompletedProjects";
+import { useState } from "react";
+import { Link, useNavigate, useParams } from "react-router-dom";
+import EmployeeDashBoard from "./components/user/employeeDashboard/EmployeeDashBoard";
+import ProjectInfo from "./components/admin/projectInfo/ProjectInfo";
+import CreateTask from "./components/admin/createTask/CreateTask";
+import EditTask from "./components/admin/editTask/EditTask";
+import CreateEmployees from "./components/admin/createEmployees/CreateEmployees";
 
 function App() {
-  return<>
-    <Routes>
-  
-        {/* <Route path="/" element={<Login/>}></Route>  */}
-       <Route path="/admin" element={<Dashboard/>}> </Route> 
-         <Route path="/create" element={<Create/>}/>
-        <Route path="/create-project" element={<Createproject/>}></Route>
-        <Route path="/admin-dashboard" element={<Dashboard/>}></Route>
-        <Route path="/register" element={<Register/>}></Route>
-        <Route path="/team" element={<Team/>}></Route>
-        <Route path="/live" element={<Live/>}></Route>
-        <Route path="/view" element={<View/>}></Route>
-        <Route path="/viewtask" element={<ViewTask/>}></Route>
-       
-        {/* <Route path="/dashboard" element={<Navbar/>}></Route> */}
-       
-       
-       </Routes>
-
-  
  
-  </>
+ const [user, setUser] = useState({});
+
+  return (
+    <BrowserRouter>
+      <UserProvider value={{ user, setUser }}>
+        <Routes>
+          <Route path="/" element={<Login />} />
+          <Route path="/home" element={<Home />}>
+            <Route path="userdashboard" element={<EmployeeDashBoard />} />
+            <Route path="admindashboard" element={<AdminDashBoard />} />
+            <Route path="employees" element={<Employees />} />
+            <Route path="createproject" element={<CreateProject />} />
+            <Route path="liveprojects" element={<LiveProjects />} />
+            <Route path="completedProjects" element={<CompletedProjects />} />
+            <Route
+              path="liveprojects/viewproject/:id/:status"
+              element={<ProjectInfo />}
+            />
+            <Route
+              path="completedprojects/viewproject/:id/:status"
+              element={<ProjectInfo />}
+            />
+            <Route
+              path="liveprojects/viewproject/edittask/:id/:taskid"
+              element={<EditTask />}
+            />
+            <Route path="createtask/:id" element={<CreateTask />} />
+            <Route path="employees/createuser" element={<CreateEmployees />} />
+          </Route>
+        </Routes>
+      </UserProvider>
+    </BrowserRouter>
+  );
 }
 
 export default App;
