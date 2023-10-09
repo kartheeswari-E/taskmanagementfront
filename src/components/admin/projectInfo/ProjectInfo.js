@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
+import Moment from "react-moment";
 
 function ProjectInfo() {
   const { id, status } = useParams()
@@ -11,6 +12,8 @@ function ProjectInfo() {
   useEffect(() => {
     loadData()
   }, [])
+  const [query, setquery] = useState("");
+
 
 
   let loadData = async () => {
@@ -19,7 +22,7 @@ function ProjectInfo() {
 
       console.log(projectdatum.data)
       setprojectdata(projectdatum.data);
-      settaskdata(projectdatum.data.task);
+      settaskdata(projectdatum.data.task.reverse());
 
     } catch (error) {
       console.log(error)
@@ -81,19 +84,36 @@ function ProjectInfo() {
           <div className="row">
             <div className="col-lg-8 mb-3">
               <button type="button" onClick={() => navigate(`/home/createtask/${projectdata._id}`)} class="btn btn-primary"><i class="bi bi-plus"></i> &nbsp;Add Task</button>
+            
             </div>
+            
             {
               status == 1 ? <div className="col-lg-4 mb-3">
-                <button type="button" onClick={() => { handlesubmit() }} class="btn btn-success"><i class="bi bi-plus"></i> &nbsp;Completed</button>
-                <button type="button" onClick={() => { handledelete() }} class="btn btn-danger"><i class="bi bi-plus"></i> &nbsp;Delete</button>
+                <button type="button" onClick={() => { handlesubmit() }} class="btn btn-success">Completed</button>
+                &nbsp;<button type="button" onClick={() => { handledelete() }} class="btn btn-danger">Delete</button>
               </div> : <div className="col-lg-4 mb-3">
-                <button type="button" onClick={() => { handledelete() }} class="btn btn-danger"><i class="bi bi-plus"></i> &nbsp;Delete</button>
+                <button type="button" onClick={() => { handledelete() }} class="btn btn-danger">Delete</button>
               </div>
             }
             <div className="col-lg-12">
               <div className="card">
                 <div className="card-body">
                   <h5 className="card-title">{projectdata.tittle}</h5>
+                  <div className="search-bar mt-3 mb-3">
+    <form
+      className="search-form d-flex align-items-center"
+      method="POST"
+      action="#"
+    >
+      <input
+        type="text"
+        onChange={(e) => setquery(e.target.value)}
+        name="query"
+        placeholder="Live Search"
+        title="Enter search keyword"
+      />
+    </form>
+  </div>
                   {/* Table with stripped rows */}
                   <table className="table table-striped">
                     <thead>
@@ -114,14 +134,30 @@ function ProjectInfo() {
 
                       {
 
-                        taskdata.map((data, i) => {
+                        taskdata.filter(
+                          (user) =>
+                            user.status.toLowerCase().includes(query) ||
+                            user.to.toLowerCase().includes(query)||user.task_name.toLowerCase().includes(query)
+                        ).map((data, i) => {
                           return (
                             <tr>
                               <td>{data.task_name}</td>
-                              <td>{data.from}</td>
-                              <td>{data.to}</td>
+                              <td>  <Moment format="D/MMM/YYYY" withTitle>
+                              {data.from}
+                            </Moment></td>
+                              <td>  <Moment format="D/MMM/YYYY" withTitle>
+                              {data.to}
+                            </Moment></td>
 
-                              <td>{data.status}</td>
+                              <td className={
+          data.status ==="not started"
+            ? "primary"
+            : data.status === "completed"
+            ? "success"
+            : data.status === "In Progress"
+            ? "warning"
+            : "danger"
+        }>{data.status}</td>
                               <td>{data.asigned_to}</td>
                               <td><button type="button" onClick={() => navigate(`/home/liveprojects/viewproject/edittask/${projectdata._id}/${data.task_id}`)} class="btn btn-warning">Edit</button></td>
                             </tr>

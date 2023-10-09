@@ -5,9 +5,11 @@ import { Link } from 'react-router-dom'
 
 function Sidebar() {
   const userContext = useContext(UserContext)
+  const userdata = localStorage.getItem("user")
+  const datum = JSON.parse(userdata)
   return (
     <>
-    {userContext.user.isAdmin?
+    {datum.isAdmin === "true" ?
   
   <aside id="sidebar" className="sidebar">
   <ul className="sidebar-nav" id="sidebar-nav">

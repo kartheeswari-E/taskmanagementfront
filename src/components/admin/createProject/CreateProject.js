@@ -34,7 +34,7 @@ function CreateProject() {
       );
 
       if (projectData.status == 200) {
-        navigate(`/home/liveprojects/viewproject/${projectData.data}/1`);
+        navigate(`/home/liveprojects`);
       }
     } catch (error) {
       console.log(error);

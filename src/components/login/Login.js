@@ -21,7 +21,7 @@ function Login() {
 
 
     const handleLogin = async (e) => {
-    
+       
         e.preventDefault()
 
         const data = new FormData(e.target)
@@ -29,13 +29,14 @@ function Login() {
 
 
         try {
-            let userData = await axios.post(`${process.env.REACT_APP_API_URL}/login`, values);
-            console.log(userData)
+            let userData = await axios.post('http://localhost:3100/login', values);
+            const datum = JSON.stringify(userData.data)
+            window.localStorage.setItem("user", datum)
             if (userData.status == 200) {
 
                
 
-                if (userData.data.isAdmin === true) {
+                if (userData.data.isAdmin ==="true") {
                     navigate("/home/admindashboard")
                 } else {
                     navigate("/home/userdashboard")
@@ -47,7 +48,7 @@ function Login() {
             console.log(userData)
             userContext.setUser(userData.data)
             console.log(userContext.user)
-        
+            
             
         } catch (error) {
             console.log(error)
@@ -64,7 +65,7 @@ function Login() {
                 <section className="section register min-vh-100 d-flex flex-column align-items-center justify-content-center py-4">
                     <div className="container">
                         <div className="row justify-content-center">
-                           
+                            
 
 
                                 <div className="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
@@ -74,7 +75,7 @@ function Login() {
                                         className="logo d-flex align-items-center w-auto"
                                     >
                                         <img src={logo} alt="" />
-                                        <span className="d-none d-lg-block">UReady Admin</span>
+                                        <span className="d-none d-lg-block">NiceAdmin</span>
                                     </a>
                                 </div>
                                 {/* End Logo */}
@@ -143,7 +144,7 @@ function Login() {
                                 </div>
 
                             </div>
-                
+                            
                         </div>
                     </div>
                 </section>
@@ -154,7 +155,5 @@ function Login() {
 }
 
 export default Login
-
-
 
 

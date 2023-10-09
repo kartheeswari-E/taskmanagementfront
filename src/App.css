@@ -206,3 +206,21 @@ card {
   color: #012970;
   font-family: "Nunito", sans-serif;
 }
+.primary{
+  color: blue !important; ;
+}
+.success{
+  color: green !important; ;
+}
+.warning{
+  color: yellow !important; ;
+}
+.danger{
+  color: red !important; ;
+
+}
+.complete-btn{
+  position: absolute !important;
+  right: 40px !important;;
+
+}

@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useContext, useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom';
-
-import UserContext from '../../../UserContext'
+import Moment from "react-moment";
 function UserTasks() {
     const { id, status } = useParams()
     const navigate = useNavigate();
-    const userContext = useContext(UserContext)
+    const userdata = localStorage.getItem("user")
+    const datum = JSON.parse(userdata)
     const [projectdata, setprojectdata] = useState([]);
     const [taskdata, settaskdata] = useState([]);
 
@@ -79,14 +79,26 @@ function UserTasks() {
                                                             project.task.map((task, i) => {
                                                                 
 
-                                                                      if(userContext.user._id == task.asigned_id ){
+                                                                      if(datum._id == task.asigned_id ){
                                                                         return (  <tr>
                                                                         <td>{task.task_name}</td>
                                                                         <td>{task.description}</td>
-                                                                        <td>{task.from}</td>
-                                                                        <td>{task.to}</td>
+                                                                        <td>  <Moment format="D/MMM/YYYY" withTitle>
+                              {task.from}
+                            </Moment></td>
+                              <td>  <Moment format="D/MMM/YYYY" withTitle>
+                              {task.to}
+                            </Moment></td>
 
-                                                                        <td>{task.status}</td>
+                              <td className={
+          task.status ==="not started"
+            ? "primary"
+            : task.status === "completed"
+            ? "success"
+            : task.status === "In Progress"
+            ? "warning"
+            : "danger"
+        }>{task.status}</td>
                                                                        
                                                                         <td><button type="button" onClick={() => navigate(`/home/mytasks/edittask/${project._id}/${task.task_id}`)} class="btn btn-warning">Edit</button></td>
                                                                     </tr>

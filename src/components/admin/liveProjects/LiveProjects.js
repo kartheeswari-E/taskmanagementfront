@@ -21,7 +21,7 @@ function LiveProjects() {
       let projectdatum = await axios.get(`${process.env.REACT_APP_API_URL}/liveprojects`);
 
       console.log(projectdatum)
-      setprojectdata(projectdatum.data);
+      setprojectdata(projectdatum.data.reverse());
     } catch (error) {
       console.log(error)
     }
