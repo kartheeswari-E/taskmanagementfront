@@ -13,7 +13,7 @@ function EmployeeDashBoard()  {
 
   let loadData = async () => {
     try {
-      let projectdatum = await axios.get(`http://localhost:3100/liveprojects`);
+      let projectdatum = await axios.get(`${process.env.REACT_APP_API_URL}/liveprojects`);
 
 
       let count = {

@@ -29,7 +29,7 @@ function Login() {
 
 
         try {
-            let userData = await axios.post('http://localhost:3100/login', values);
+            let userData = await axios.post(`${process.env.REACT_APP_API_URL}/login`, values);
             const datum = JSON.stringify(userData.data)
             window.localStorage.setItem("user", datum)
             if (userData.status == 200) {
